@@ -86,7 +86,7 @@ def interaction():
         }
     ]
 
-    MATH_LESSONS = [
+        MATH_LESSONS = [
         {
             "announce_action":    "announce_pythagoras",
             "explanation_action": "explanation_pythagoras",
@@ -104,13 +104,13 @@ def interaction():
             "topic_name":         "Pi (π)"
         },
         {
-            "announce_action":    "announce_multiplication",
-            "explanation_action": "explanation_multiplication",
-            "explanation_text":   "Multiplication is another basic operation of arithmetic. The result of multiplying numbers is called the product.",
-            "question_action":    "question_multiplication",
-            "correct_answer":     "product",
-            "topic_name":         "Multiplication"
-        }
+            "announce_action":    "announce_prime",
+            "explanation_action": "explanation_prime",
+            "explanation_text":   "A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself. For example, 2, 3, 5, and 7 are prime numbers.",
+            "question_action":    "question_prime",
+            "correct_answer":     "prime",
+            "topic_name":         "Prime Numbers"
+        },
     ]
 
     MUSIC_LESSONS = [
@@ -131,13 +131,13 @@ def interaction():
             "topic_name":         "The Piano"
         },
         {
-            "announce_action":    "announce_note",
-            "explanation_action": "explanation_note",
-            "explanation_text":   "In music, a note is a symbol denoting a musical sound. In English usage, a note is also the sound itself. Notes can represent the pitch and duration of a sound.",
-            "question_action":    "question_note",
-            "correct_answer":     "note",
-            "topic_name":         "Musical Notes"
-        }
+            "announce_action":    "announce_mozart",
+            "explanation_action": "explanation_mozart",
+            "explanation_text":   "Wolfgang Amadeus Mozart was a prolific and influential composer of the Classical period. He was a child prodigy who composed his first piece of music at age five.",
+            "question_action":    "question_mozart",
+            "correct_answer":     "mozart",
+            "topic_name":         "Mozart"
+        },
     ]
 
     ALL_LESSONS_DATA = {
