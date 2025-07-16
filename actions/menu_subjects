@@ -1,0 +1,28 @@
+IMAGE
+<*,*,*,*>: img/pepper_professor_welcome.png
+----
+TEXT
+<*,*,it,*>: Ottima scelta! Quale materia vuoi approfondire?
+<*,*,*,*>: Great choice! Which subject would you like to learn about?
+----
+TTS
+<*,*,it,*>: Ottima scelta! Quale materia vuoi approfondire? Puoi scegliere tra Scienze e Storia. Oppure, dì 'indietro'.
+<*,*,*,*>: Great! Which subject would you like to learn about? You can choose Science or History. Or, just say 'go back'.
+----
+BUTTONS
+science
+<*,*,it,*>: Scienze
+<*,*,*,*>: Science
+history
+<*,*,it,*>: Storia
+<*,*,*,*>: History
+music
+<*,*,it,*>: Musica
+<*,*,*,*>: Music
+math
+<*,*,it,*>: Matematica
+<*,*,*,*>: Math
+back
+<*,*,it,*>: Indietro
+<*,*,*,*>: Go Back
+----

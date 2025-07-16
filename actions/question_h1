@@ -1,0 +1,17 @@
+IMAGE
+<*,*,*,*>: img/renaissance.jpeg
+----
+TEXT
+<*,*,*,*>: In which European country did the Renaissance begin?
+----
+TTS
+<*,*,*,*>: Question for you: In which country did the Renaissance start?
+----
+BUTTONS
+italy
+<*,*,*,*>: Italy
+france
+<*,*,*,*>: France
+germany
+<*,*,*,*>: Germany
+----

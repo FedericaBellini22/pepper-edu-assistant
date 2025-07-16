@@ -1,0 +1,11 @@
+IMAGE
+<*,*,*,*>: img/angry_pepper_professor.png
+----
+TEXT
+<*,*,*,*>: Hey, it looks like you are a bit distracted. Please try to focus.
+----
+TTS
+<*,*,*,*>: Hey, it looks like you are a bit distracted. Please try to focus.
+----
+GESTURE
+<*,*,*,*>: animations/Stand/Gestures/No_1

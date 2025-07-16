@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/photosynthesis.png
+----
+TEXT
+<*,*,it,*>: Qual è un ingrediente chiave per la fotosintesi?
+<*,*,*,*>: What is a key ingredient for photosynthesis?
+----
+TTS
+<*,*,it,*>: Domanda per te. Qual è un ingrediente chiave per la fotosintesi?
+<*,*,*,*>: Here's a question for you. What is a key ingredient for photosynthesis?
+----
+BUTTONS
+sunlight
+<*,*,it,*>: Luce Solare
+<*,*,*,*>: Sunlight
+moonlight
+<*,*,it,*>: Luce Lunare
+<*,*,*,*>: Moonlight
+soil
+<*,*,it,*>: Terreno
+<*,*,*,*>: Soil
+----

@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/water_cycle.png
+----
+TEXT
+<*,*,it,*>: Come si chiama quando l'acqua cade dalle nuvole?
+<*,*,*,*>: What is it called when water falls from clouds?
+----
+TTS
+<*,*,it,*>: Ultima domanda. Come si chiama quando l'acqua cade dalle nuvole?
+<*,*,*,*>: Final question. What is it called when water falls from clouds?
+----
+BUTTONS
+evaporation
+<*,*,it,*>: Evaporazione
+<*,*,*,*>: Evaporation
+condensation
+<*,*,it,*>: Condensazione
+<*,*,*,*>: Condensation
+precipitation
+<*,*,it,*>: Precipitazione
+<*,*,*,*>: Precipitation
+----

@@ -1,0 +1,11 @@
+TEXT
+<*,*,it,*>: La funzione Quiz è in arrivo! Per favore scegli un'altra opzione per ora.
+<*,*,*,*>: The Quiz feature is coming soon! Please choose another option for now.
+----
+TTS
+<*,*,it,*>: La modalità Quiz sarà presto disponibile! Per ora, scegli un'altra opzione.
+<*,*,*,*>: The Quiz feature is coming soon! Please choose another option for now.
+----
+GESTURE
+<*,*,*,*>: animations/Stand/Gestures/IDontKnow_1
+----

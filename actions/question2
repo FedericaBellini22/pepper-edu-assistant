@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/solar_system.png
+----
+TEXT
+<*,*,it,*>: Cosa si trova al centro del nostro Sistema Solare?
+<*,*,*,*>: What is at the center of our Solar System?
+----
+TTS
+<*,*,it,*>: Prossima domanda. Cosa si trova al centro del nostro Sistema Solare?
+<*,*,*,*>: Next question. What is at the center of our Solar System?
+----
+BUTTONS
+earth
+<*,*,it,*>: La Terra
+<*,*,*,*>: Earth
+the_sun
+<*,*,it,*>: Il Sole
+<*,*,*,*>: The Sun
+a_black_hole
+<*,*,it,*>: Un Buco Nero
+<*,*,*,*>: A Black Hole
+----

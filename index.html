@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pepper Edu Assistant</title>
+  
+  <!-- MODIM websocket helper -->
+  <script src="qaws.js"></script>
+
+  <!-- Tailwind CDN for quick modern styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    /* Fallbacks for environments without Tailwind */
+    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#f9fafb}
+    .btn{background:#e11d48;color:#fff;padding:14px 24px;border-radius:0.5rem;font-size:1.25rem;margin:0.5rem}
+  </style>
+
+  <style>
+    button {
+      background-color: #be123c; /* rose-600 */
+      color: white;
+      font-size: 1.125rem;       /* text-lg */
+      padding: 0.75rem 1.5rem;   /* py-3 px-6 */
+      border-radius: 0.75rem;    /* rounded-xl */
+      margin: 0.5rem;            /* m-2 */
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #be123c; /* rose-700 */
+    }
+  </style>
+
+
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Top bar with title and connection status -->
+  <header class="w-full flex items-center justify-between bg-white/80 backdrop-blur p-3 shadow-sm">
+    <h2 class="text-xl font-semibold text-slate-700 pl-3">Pepper Edu Assistant – by Federica Bellini</h2>
+    <div id="status" class="text-sm text-red-600 pr-3">NOT CONNECTED</div>
+  </header>
+
+  <!-- Hero section -->
+  <section class="flex-1 flex flex-col items-center justify-center text-center gap-6 px-4">
+    <img id="image_default" src="img/welcome_professor_pepper.png" alt="Pepper welcomes you" class="h-72 object-contain rounded-2xl shadow" />
+
+    <h1 id="text_default" class="text-4xl lg:text-5xl font-semibold text-slate-800">
+      Welcome to Pepper’s Interactive Lesson!
+    </h1>
+    
+    <!-- Attention Score Bar -->
+    <div style="text-align: center; margin-top: 30px;">
+      <label for="attentionBar"><b>Attention Score</b></label><br>
+      <progress id="attentionBar" value="0" max="100" style="width: 80%; height: 30px;"></progress>
+      <div id="attentionLabel">0%</div>
+    </div>
+
+
+    <!-- Dynamic buttons from MODIM will be injected here -->
+    <div id="buttons" class="flex flex-wrap justify-center"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-xs text-slate-500 pb-4">
+    Pepper Edu Assistant &bull; La Sapienza University, HRI-RBC Project 2025
+  </footer>
+
+  <!-- ********  WEBSOCKET INITIALIZATION  ******** -->
+  <script>
+    const ip = window.location.hostname || "127.0.0.1";
+    const port = 9100;
+    console.log("Connecting to MODIM WS at", ip, port);
+    wsrobot_init(ip, port);
+
+    let attentionScores = [];
+
+    function updateAttentionScore(score) {
+      console.log("Received attention score:", score); 
+      const progress = document.getElementById('attentionBar');
+      const label = document.getElementById('attentionLabel');
+      progress.value = score;
+      label.textContent = score + "%";
+
+      attentionScores.push(score);
+    }
+
+    function getAverageAttention() {
+      if (attentionScores.length === 0) return 0;
+      const sum = attentionScores.reduce((a, b) => a + b, 0);
+      return Math.round(sum / attentionScores.length);
+    }
+
+  </script>
+
+  
+</body>
+</html>

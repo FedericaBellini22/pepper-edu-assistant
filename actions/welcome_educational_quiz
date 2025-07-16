@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/pepper_professor_welcome.png
+----
+TEXT
+<*,*,it,*>: Ciao! Sono Pepper, il tuo assistente. Cosa vorresti fare oggi?
+<*,*,*,*>: Hello! I am Pepper, your learning assistant. What would you like to do today?
+----
+TTS
+<*,*,it,*>: Ciao! Sono Pepper, il tuo assistente. Cosa vorresti fare oggi? Puoi scegliere di imparare una nuova lezione, o fare un quiz.
+<*,*,*,*>: Hello! I am Pepper, your learning assistant. What would you like to do today? You can choose to learn a new lesson, or take a general knowledge quiz.
+----
+BUTTONS
+lessons
+<*,*,it,*>: Impara una Lezione
+<*,*,*,*>: Learn a Lesson
+quiz
+<*,*,it,*>: Quiz Generale
+<*,*,*,*>: General Quiz
+exit
+<*,*,it,*>: Esci
+<*,*,*,*>: Goodbye
+----

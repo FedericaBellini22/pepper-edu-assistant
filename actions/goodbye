@@ -1,0 +1,14 @@
+IMAGE
+<*,*,*,*>: img/finishing_class.png
+----
+TEXT
+<*,*,it,*>: Alla prossima!
+<*,*,*,*>: See you next time!
+----
+TTS
+<*,*,it,*>: Spero ti sia divertito. Alla prossima!
+<*,*,*,*>: I hope you enjoyed our session. Goodbye!
+----
+GESTURE
+<*,*,*,*>: animations/Stand/Gestures/Bye_1
+----

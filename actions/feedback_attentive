@@ -1,0 +1,11 @@
+IMAGE
+<*,*,*,*>: img/happy_pepper_professor.png
+----
+TEXT
+<*,*,*,*>: Very good! I see you are following the lesson closely.
+----
+TTS
+<*,*,*,*>: Very good! I see you are following the lesson closely.
+----
+GESTURE
+<*,*,*,*>: animations/Stand/Gestures/Enthusiastic_5

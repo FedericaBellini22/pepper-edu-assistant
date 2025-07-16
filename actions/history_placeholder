@@ -1,0 +1,9 @@
+TEXT
+<*,*,it,*>: Le lezioni di storia saranno pronte molto presto! Per ora seleziona Scienze.
+<*,*,*,*>: I will have history lessons ready very soon! Please select Science for now.
+----
+TTS
+<*,*,*,*>: I will have history lessons ready very soon! Please select Science for now.
+----
+GESTURE
+<*,*,*,*>: animations/Stand/Gestures/IDontKnow_1
