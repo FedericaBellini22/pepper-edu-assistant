@@ -50,14 +50,102 @@ def interaction():
             "topic_name":         "Solar system"
         },
         {
-            "announce_action":    "announce_watercycle",
-            "explanation_action": "explanation_watercycle",
-            "explanation_text":   "The water cycle describes how water evaporates from the surface of the Earth, rises into the atmosphere, cools and condenses into rain or snow in clouds, and falls again to the surface.",
-            "question_action":    "question3",
-            "correct_answer":     "precipitation",
-            "topic_name":         "Water cycle"
+            "announce_action":    "announce_heart",
+            "explanation_action": "explanation_heart",
+            "explanation_text":   "The human heart is an organ that pumps blood throughout the body via the circulatory system, supplying oxygen and nutrients to the tissues and removing carbon dioxide and other wastes.",
+            "question_action":    "question_heart",
+            "correct_answer":     "heart",
+            "topic_name":         "The Human Heart"
         }
     ]
+
+    HISTORY_LESSONS = [
+        {
+            "announce_action":    "announce_rome",
+            "explanation_action": "explanation_rome",
+            "explanation_text":   "Ancient Rome was a civilization that grew from a small agricultural community founded on the Italian Peninsula in the 9th century BC into a vast empire.",
+            "question_action":    "question_rome",
+            "correct_answer":     "augustus",
+            "topic_name":         "Ancient Rome"
+        },
+        {
+            "announce_action":    "announce_egypt",
+            "explanation_action": "explanation_egypt",
+            "explanation_text":   "Ancient Egypt was a civilization in Northeast Africa. It is famous for its pharaohs, the great pyramids, and the Sphinx.",
+            "question_action":    "question_egypt",
+            "correct_answer":     "pyramids",
+            "topic_name":         "Ancient Egypt"
+        },
+        {
+            "announce_action":    "announce_columbus",
+            "explanation_action": "explanation_columbus",
+            "explanation_text":   "Christopher Columbus was an Italian explorer who completed four voyages across the Atlantic Ocean, opening the way for the widespread European exploration and colonization of the Americas.",
+            "question_action":    "question_columbus",
+            "correct_answer":     "columbus",
+            "topic_name":         "Discovery of the Americas"
+        }
+    ]
+
+    MATH_LESSONS = [
+        {
+            "announce_action":    "announce_pythagoras",
+            "explanation_action": "explanation_pythagoras",
+            "explanation_text":   "The Pythagorean theorem is a fundamental relation in geometry among the three sides of a right triangle. It states that the square of the hypotenuse is equal to the sum of the squares of the other two sides.",
+            "question_action":    "question_pythagoras",
+            "correct_answer":     "hypotenuse",
+            "topic_name":         "Pythagorean Theorem"
+        },
+        {
+            "announce_action":    "announce_pi",
+            "explanation_action": "explanation_pi",
+            "explanation_text":   "Pi is a mathematical constant, approximately equal to 3.14159. It is defined as the ratio of a circle's circumference to its diameter.",
+            "question_action":    "question_pi",
+            "correct_answer":     "pi",
+            "topic_name":         "Pi (π)"
+        },
+        {
+            "announce_action":    "announce_multiplication",
+            "explanation_action": "explanation_multiplication",
+            "explanation_text":   "Multiplication is another basic operation of arithmetic. The result of multiplying numbers is called the product.",
+            "question_action":    "question_multiplication",
+            "correct_answer":     "product",
+            "topic_name":         "Multiplication"
+        }
+    ]
+
+    MUSIC_LESSONS = [
+        {
+            "announce_action":    "announce_beethoven",
+            "explanation_action": "explanation_beethoven",
+            "explanation_text":   "Ludwig van Beethoven was a German composer and pianist. A crucial figure in the transition between the Classical and Romantic eras, he became famously deaf in his later life.",
+            "question_action":    "question_beethoven",
+            "correct_answer":     "beethoven",
+            "topic_name":         "Beethoven"
+        },
+        {
+            "announce_action":    "announce_piano",
+            "explanation_action": "explanation_piano",
+            "explanation_text":   "The piano is a keyboard instrument that produces sound by striking strings with hammers. A standard modern piano has 88 keys.",
+            "question_action":    "question_piano",
+            "correct_answer":     "piano",
+            "topic_name":         "The Piano"
+        },
+        {
+            "announce_action":    "announce_note",
+            "explanation_action": "explanation_note",
+            "explanation_text":   "In music, a note is a symbol denoting a musical sound. In English usage, a note is also the sound itself. Notes can represent the pitch and duration of a sound.",
+            "question_action":    "question_note",
+            "correct_answer":     "note",
+            "topic_name":         "Musical Notes"
+        }
+    ]
+
+    ALL_LESSONS_DATA = {
+        "science": SCIENCE_LESSONS,
+        "history": HISTORY_LESSONS,
+        "math": MATH_LESSONS,
+        "music": MUSIC_LESSONS
+    }
 
     # --- UTILITY FUNCTIONS ---
     def load_attention_log(log_filename):
@@ -86,20 +174,21 @@ def interaction():
         # 1. Send the specific command to update the progress bar in qaws.js
         im.executeModality('TEXT_attentionscore', str(score_percentage))
 
+        # 2. Updates the main text shown to the user 
         im.executeModality('TEXT_default', "Your Attention Score: %d%%" % score_percentage)
 
         print("\n--- Attention score (frames %d-%d): %.2f%%" % (start_frame, end_frame, score * 100))
         return (score >= threshold, score_percentage)
 
     # --- CORE LOGIC SUB-FUNCTIONS ---
-    def run_science_lessons(dependencies):
+    def run_lesson_session(dependencies):
         import math
         import time
 
         attention_scores = []
 
         subject_name = dependencies.get("subject_name", "scienze")
-        lessons = dependencies["lessons"]
+        lessons = dependencies["current_lessons"]
         log_loader = dependencies["log_loader"]
         attention_checker = dependencies["attention_checker"]
         attention_log_file = dependencies["attention_log_file"]
@@ -205,16 +294,18 @@ def interaction():
         time.sleep(5)          # hold the goodbye message
 
 
-
     def run_subject_menu(dependencies):
+        # Get the master dictionary from the dependencies
+        all_lessons = dependencies["all_lessons_data"]
+
         while True:
             choice = im.ask("menu_subjects", timeout=20)
-            if choice == "science":
-                dependencies["subject_name"] = "science"
-                dependencies["science_runner"](dependencies)
-            elif choice == "history":
-                dependencies["subject_name"] = "history"
-                im.execute("history_placeholder")
+
+            if choice in all_lessons:
+                dependencies["subject_name"] = choice
+                dependencies["current_lessons"] = all_lessons[choice] 
+                dependencies["lesson_runner"](dependencies)
+                
             elif choice in ("back", "timeout"):
                 im.executeModality('TEXT_default', "Returning to the main menu.")
                 break
@@ -243,16 +334,19 @@ def interaction():
 
     # --- DICTIONARY OF ALL DEPENDENCIES ---
     app_dependencies = {
-        "lessons": SCIENCE_LESSONS,
         "log_loader": load_attention_log,
         "attention_checker": was_user_attentive,
         "attention_log_file": ATTENTION_LOG_FILE,
         "threshold": ATTENTION_THRESHOLD,
         "reading_time": READING_TIME_SECONDS,
-        "science_runner": run_science_lessons,
+        "lesson_runner": run_lesson_session,           
         "subject_menu_runner": run_subject_menu,
         "quiz_runner": run_general_quiz,
-        "history_placeholder_runner": run_general_quiz,
+        "all_lessons_data": ALL_LESSONS_DATA, 
+
+        # This will be populated later by run_subject_menu
+        "current_lessons": None, 
+        "subject_name": None
     }
 
     # --- FINAL ENTRY POINT ---
