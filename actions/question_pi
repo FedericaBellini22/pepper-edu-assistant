@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/math.png
+----
+TEXT
+<*,*,it,*>: Qual è la costante matematica che rappresenta il rapporto tra la circonferenza di un cerchio e il suo diametro?
+<*,*,*,*>: What mathematical constant is the ratio of a circle's circumference to its diameter?
+----
+TTS
+<*,*,it,*>: Domanda per te. Qual è la costante matematica che rappresenta il rapporto tra la circonferenza di un cerchio e il suo diametro?
+<*,*,*,*>: Here's a question for you. What mathematical constant is the ratio of a circle's circumference to its diameter?
+----
+BUTTONS
+pi
+<*,*,it,*>: Pi Greco
+<*,*,*,*>: Pi
+e
+<*,*,it,*>: Numero di Eulero
+<*,*,*,*>: e
+phi
+<*,*,it,*>: Sezione Aurea
+<*,*,*,*>: Phi
+----

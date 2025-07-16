@@ -1,0 +1,4 @@
+TEXT
+<*,*,it,*>: Un numero primo è un numero naturale maggiore di 1 che non ha divisori positivi se non 1 e se stesso. Ad esempio, 2, 3, 5 e 7 sono numeri primi.
+<*,*,*,*>: A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself. For example, 2, 3, 5, and 7 are prime numbers.
+----

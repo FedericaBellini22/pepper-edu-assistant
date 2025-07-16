@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/mozart.png
+----
+TEXT
+<*,*,it,*>: Quale influente compositore del periodo Classico era un bambino prodigio?
+<*,*,*,*>: What influential composer of the Classical period was a child prodigy?
+----
+TTS
+<*,*,it,*>: Domanda per te. Quale influente compositore del periodo Classico era un bambino prodigio?
+<*,*,*,*>: Here's a question for you. What influential composer of the Classical period was a child prodigy?
+----
+BUTTONS
+mozart
+<*,*,it,*>: Mozart
+<*,*,*,*>: Mozart
+beethoven
+<*,*,it,*>: Beethoven
+<*,*,*,*>: Beethoven
+salieri
+<*,*,it,*>: Salieri
+<*,*,*,*>: Salieri
+----

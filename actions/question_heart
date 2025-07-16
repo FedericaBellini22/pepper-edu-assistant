@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/anatomy.png
+----
+TEXT
+<*,*,it,*>: Quale organo pompa il sangue in tutto il corpo attraverso il sistema circolatorio?
+<*,*,*,*>: What organ pumps blood throughout the body via the circulatory system?
+----
+TTS
+<*,*,it,*>: Domanda per te. Quale organo pompa il sangue in tutto il corpo attraverso il sistema circolatorio?
+<*,*,*,*>: Here's a question for you. What organ pumps blood throughout the body via the circulatory system?
+----
+BUTTONS
+heart
+<*,*,it,*>: Cuore
+<*,*,*,*>: Heart
+lungs
+<*,*,it,*>: Polmoni
+<*,*,*,*>: Lungs
+brain
+<*,*,it,*>: Cervello
+<*,*,*,*>: Brain
+----

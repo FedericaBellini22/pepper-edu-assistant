@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/math.png
+----
+TEXT
+<*,*,it,*>: Che tipo di numero è maggiore di 1 e non ha divisori positivi se non 1 e se stesso?
+<*,*,*,*>: What type of number is greater than 1 and has no positive divisors other than 1 and itself?
+----
+TTS
+<*,*,it,*>: Domanda per te. Che tipo di numero è maggiore di 1 e non ha divisori positivi se non 1 e se stesso?
+<*,*,*,*>: Here's a question for you. What type of number is greater than 1 and has no positive divisors other than 1 and itself?
+----
+BUTTONS
+prime
+<*,*,it,*>: Numero Primo
+<*,*,*,*>: Prime Number
+even
+<*,*,it,*>: Numero Pari
+<*,*,*,*>: Even Number
+odd
+<*,*,it,*>: Numero Dispari
+<*,*,*,*>: Odd Number
+----

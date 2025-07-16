@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/math.png
+----
+TEXT
+<*,*,it,*>: In un triangolo rettangolo, il quadrato di quale lato è uguale alla somma dei quadrati degli altri due lati?
+<*,*,*,*>: In a right triangle, the square of which side is equal to the sum of the squares of the other two sides?
+----
+TTS
+<*,*,it,*>: Domanda per te. In un triangolo rettangolo, il quadrato di quale lato è uguale alla somma dei quadrati degli altri due lati?
+<*,*,*,*>: Here's a question for you. In a right triangle, the square of which side is equal to the sum of the squares of the other two sides?
+----
+BUTTONS
+hypotenuse
+<*,*,it,*>: Ipotenusa
+<*,*,*,*>: Hypotenuse
+area
+<*,*,it,*>: Area
+<*,*,*,*>: Area
+perimeter
+<*,*,it,*>: Perimetro
+<*,*,*,*>: Perimeter
+----

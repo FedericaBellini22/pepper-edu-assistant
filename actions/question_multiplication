@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/math.png
+----
+TEXT
+<*,*,it,*>: In aritmetica, come si chiama il risultato della moltiplicazione di numeri?
+<*,*,*,*>: In arithmetic, what is the result of multiplying numbers called?
+----
+TTS
+<*,*,it,*>: Domanda per te. In aritmetica, come si chiama il risultato della moltiplicazione di numeri?
+<*,*,*,*>: Here's a question for you. In arithmetic, what is the result of multiplying numbers called?
+----
+BUTTONS
+product
+<*,*,it,*>: Prodotto
+<*,*,*,*>: Product
+sum
+<*,*,it,*>: Somma
+<*,*,*,*>: Sum
+quotient
+<*,*,it,*>: Quoziente
+<*,*,*,*>: Quotient
+----

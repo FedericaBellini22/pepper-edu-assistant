@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/strumenti_musicali.png
+----
+TEXT
+<*,*,it,*>: Come si chiama lo strumento a tastiera con 88 tasti che produce suono percuotendo delle corde?
+<*,*,*,*>: What is the name of the keyboard instrument with 88 keys that produces sound by striking strings?
+----
+TTS
+<*,*,it,*>: Domanda per te. Come si chiama lo strumento a tastiera con 88 tasti che produce suono percuotendo delle corde?
+<*,*,*,*>: Here's a question for you. What is the name of the keyboard instrument with 88 keys that produces sound by striking strings?
+----
+BUTTONS
+piano
+<*,*,it,*>: Pianoforte
+<*,*,*,*>: Piano
+harpsichord
+<*,*,it,*>: Clavicembalo
+<*,*,*,*>: Harpsichord
+organ
+<*,*,it,*>: Organo
+<*,*,*,*>: Organ
+----

@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/imperatori.png
+----
+TEXT
+<*,*,it,*>: Chi fu il primo imperatore dell'Antica Roma?
+<*,*,*,*>: Who was the first emperor of Ancient Rome?
+----
+TTS
+<*,*,it,*>: Domanda per te. Chi fu il primo imperatore dell'Antica Roma?
+<*,*,*,*>: Here's a question for you. Who was the first emperor of Ancient Rome?
+----
+BUTTONS
+augustus
+<*,*,it,*>: Augusto
+<*,*,*,*>: Augustus
+caesar
+<*,*,it,*>: Cesare
+<*,*,*,*>: Caesar
+nero
+<*,*,it,*>: Nerone
+<*,*,*,*>: Nero
+----

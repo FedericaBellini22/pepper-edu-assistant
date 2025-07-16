@@ -1,0 +1,10 @@
+IMAGE
+<*,*,*,*>: img/pepper_professor_idea.png
+----
+TEXT
+<*,*,*,*>: Topic: Pi (π)
+----
+TTS
+<*,*,it,*>: È ora di imparare a conoscere il numero Pi greco!
+<*,*,*,*>: Time to learn about the number Pi!
+----

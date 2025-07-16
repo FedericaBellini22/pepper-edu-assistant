@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/composers.png
+----
+TEXT
+<*,*,it,*>: Quale compositore e pianista tedesco divenne notoriamente sordo in età avanzata?
+<*,*,*,*>: What German composer and pianist famously became deaf in his later life?
+----
+TTS
+<*,*,it,*>: Domanda per te. Quale compositore e pianista tedesco divenne notoriamente sordo in età avanzata?
+<*,*,*,*>: Here's a question for you. What German composer and pianist famously became deaf in his later life?
+----
+BUTTONS
+beethoven
+<*,*,it,*>: Beethoven
+<*,*,*,*>: Beethoven
+mozart
+<*,*,it,*>: Mozart
+<*,*,*,*>: Mozart
+bach
+<*,*,it,*>: Bach
+<*,*,*,*>: Bach
+----

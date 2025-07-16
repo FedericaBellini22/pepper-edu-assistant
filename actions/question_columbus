@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/esploratori.png
+----
+TEXT
+<*,*,it,*>: Quale esploratore italiano ha aperto la strada all'esplorazione europea delle Americhe?
+<*,*,*,*>: What Italian explorer opened the way for the European exploration of the Americas?
+----
+TTS
+<*,*,it,*>: Domanda per te. Quale esploratore italiano ha aperto la strada all'esplorazione europea delle Americhe?
+<*,*,*,*>: Here's a question for you. What Italian explorer opened the way for the European exploration of the Americas?
+----
+BUTTONS
+columbus
+<*,*,it,*>: Colombo
+<*,*,*,*>: Columbus
+magellan
+<*,*,it,*>: Magellano
+<*,*,*,*>: Magellan
+vasco da gama
+<*,*,it,*>: Vasco da Gama
+<*,*,*,*>: Vasco da Gama
+----

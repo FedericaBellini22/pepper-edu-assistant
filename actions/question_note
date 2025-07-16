@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/note.png
+----
+TEXT
+<*,*,it,*>: In musica, qual è il simbolo che rappresenta l'altezza e la durata di un suono?
+<*,*,*,*>: In music, what is the symbol that represents the pitch and duration of a sound?
+----
+TTS
+<*,*,it,*>: Domanda per te. In musica, qual è il simbolo che rappresenta l'altezza e la durata di un suono?
+<*,*,*,*>: Here's a question for you. In music, what is the symbol that represents the pitch and duration of a sound?
+----
+BUTTONS
+note
+<*,*,it,*>: Nota
+<*,*,*,*>: Note
+chord
+<*,*,it,*>: Accordo
+<*,*,*,*>: Chord
+scale
+<*,*,it,*>: Scala
+<*,*,*,*>: Scale
+----

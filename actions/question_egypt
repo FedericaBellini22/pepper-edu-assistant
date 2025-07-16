@@ -1,0 +1,22 @@
+IMAGE
+<*,*,*,*>: img/egypt2.png
+----
+TEXT
+<*,*,it,*>: Oltre che per i faraoni e la Sfinge, per quali altre grandi strutture è famoso l'Antico Egitto?
+<*,*,*,*>: Besides its pharaohs and the Sphinx, what other great structures is Ancient Egypt famous for?
+----
+TTS
+<*,*,it,*>: Domanda per te. Oltre che per i faraoni e la Sfinge, per quali altre grandi strutture è famoso l'Antico Egitto?
+<*,*,*,*>: Here's a question for you. Besides its pharaohs and the Sphinx, what other great structures is Ancient Egypt famous for?
+----
+BUTTONS
+pyramids
+<*,*,it,*>: Piramidi
+<*,*,*,*>: Pyramids
+aqueducts
+<*,*,it,*>: Acquedotti
+<*,*,*,*>: Aqueducts
+colosseums
+<*,*,it,*>: Colossei
+<*,*,*,*>: Colosseums
+----

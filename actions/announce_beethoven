@@ -1,0 +1,10 @@
+IMAGE
+<*,*,*,*>: img/pepper_professor_idea.png
+----
+TEXT
+<*,*,*,*>: Topic: Beethoven
+----
+TTS
+<*,*,it,*>: È ora di una lezione di musica su Beethoven.
+<*,*,*,*>: Time for a music lesson on Beethoven.
+----
