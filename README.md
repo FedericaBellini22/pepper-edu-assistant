@@ -26,7 +26,7 @@ The system operates in three main phases:
 
 ### Workflow Diagram
 
-![ChatGPT Image 16 lug 2025, 21_45_35](https://github.com/user-attachments/assets/34a10666-f64c-44c3-9e46-bf731d526776)
+
 
 
 ## ✨ Key Features
