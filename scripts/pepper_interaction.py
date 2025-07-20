@@ -28,7 +28,7 @@ def interaction():
     level, using the 'feedback_attentive' and 'feedback_distracted' actions.
     """
     # --- CONFIGURATION CONSTANTS AND DATA ---
-    ATTENTION_LOG_FILE = 'attention_log.csv'
+    ATTENTION_LOG_FILE = 'attention_mixed_distracted.csv'
     ATTENTION_THRESHOLD = 0.60
     READING_TIME_SECONDS = 10
 
@@ -86,7 +86,7 @@ def interaction():
         }
     ]
 
-        MATH_LESSONS = [
+    MATH_LESSONS = [
         {
             "announce_action":    "announce_pythagoras",
             "explanation_action": "explanation_pythagoras",
@@ -194,6 +194,7 @@ def interaction():
         attention_log_file = dependencies["attention_log_file"]
         threshold = dependencies["threshold"]
         reading_time = dependencies["reading_time"]
+        quiz_runner = dependencies["quiz_runner"]
 
         attention_data = log_loader(attention_log_file)
         if attention_data is None:
@@ -312,8 +313,61 @@ def interaction():
             else:
                 im.executeModality('TEXT_default', "I didn't understand. Please choose an option.")
 
-    def run_general_quiz():
-        im.execute("quiz_placeholder")
+    def run_general_quiz(dependencies):
+        import time
+        import random
+
+        all_lessons = dependencies["all_lessons_data"]
+
+        topics = {
+            "Science": random.choice(all_lessons["science"]),
+            "History": random.choice(all_lessons["history"]),
+            "Math": random.choice(all_lessons["math"]),
+            "Music": random.choice(all_lessons["music"])
+        }
+
+
+        correct_count = 0
+        total = len(topics)
+
+        im.executeModality('TEXT_default', "Let's begin the general knowledge quiz!")
+        time.sleep(2)
+
+        for subject, lesson in topics.items():
+            im.executeModality('TEXT_default', "Category: {}".format(subject))
+            time.sleep(1)
+
+            im.execute(lesson["announce_action"])
+            time.sleep(2)
+
+            answer = im.ask(lesson["question_action"], timeout=15)
+
+            if answer and lesson["correct_answer"].lower() in answer.lower():
+                im.executeModality('TEXT_default', "Correct answer! Well done.")
+                correct_count += 1
+            else:
+                im.executeModality(
+                    'TEXT_default',
+                    "Wrong. The correct answer was '{}'.".format(lesson['correct_answer'])
+                )
+            time.sleep(2)
+
+        score_percent = int((correct_count / float(total)) * 100)
+        final_msg = "You scored {} out of {} ({}%).".format(correct_count, total, score_percent)
+        im.executeModality('TEXT_default', final_msg)
+        time.sleep(3)
+
+        if score_percent == 100:
+            im.executeModality('TEXT_default', "Excellent work! You're a true knowledge master!")
+        elif score_percent >= 75:
+            im.executeModality('TEXT_default', "Great job! Keep it up!")
+        elif score_percent >= 50:
+            im.executeModality('TEXT_default', "Not bad! But you can do better with some revision.")
+        else:
+            im.executeModality('TEXT_default', "Keep practicing and you'll improve!")
+        time.sleep(3)
+
+
 
     def start_interaction_controller(dependencies):
         import time
@@ -322,7 +376,7 @@ def interaction():
             if choice == "lessons":
                 dependencies["subject_menu_runner"](dependencies)
             elif choice == "quiz":
-                dependencies["quiz_runner"]()
+                dependencies["quiz_runner"](dependencies)
             elif choice in ("exit", "timeout"):
                 break
             else:
