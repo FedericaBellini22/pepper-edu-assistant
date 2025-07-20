@@ -24,8 +24,6 @@ The system operates in three main phases:
 3.  **Post-Hoc - Benchmarking (`generate_graphs.py`)**:
     After the session, this script reads `benchmark_log.csv` and generates a series of graphs to visualize the session's results, showing trends and correlations between student attention and learning success.
 
-### Workflow Diagram
-
 
 
 
@@ -53,3 +51,5 @@ python -m pip install numpy
 python -m pip install pandas
 python -m pip install matplotlib
 python -m pip install seaborn
+
+
