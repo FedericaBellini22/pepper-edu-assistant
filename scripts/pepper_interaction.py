@@ -23,6 +23,174 @@ from GUI.interaction_manager import InteractionManager
 #   MAIN INTERACTION FUNCTION (SENT TO SERVER)
 # ===================================================================
 def interaction():
+    import os
+    PEPPER_IP   = os.environ.get('PEPPER_IP', '192.168.1.100')
+    PEPPER_PORT = int(os.environ.get('PEPPER_PORT', '9559'))
+    PEPPER_LANG = os.environ.get('PEPPER_LANG', 'Italian')
+    PEPPER_VOL  = float(os.environ.get('PEPPER_VOL', '0.8'))
+    PEPPER_SPD  = int(os.environ.get('PEPPER_SPD', '90'))
+    PEPPER_TOOLS_HOME = os.getenv('PEPPER_TOOLS_HOME')
+
+    def _build_robot_say():
+        # 1) prova pepper_cmd se presente
+        try:
+            if PEPPER_TOOLS_HOME:
+                import sys as _sys, os as _os
+                _sys.path.append(os.path.join(PEPPER_TOOLS_HOME, 'cmd_server'))
+            import pepper_cmd
+            from pepper_cmd import robot as _pc_robot
+            try:
+                try: pepper_cmd.end()
+                except: pass
+                try: pepper_cmd.begin()
+                except: pass
+                try: _pc_robot.tts_service.setLanguage(PEPPER_LANG)
+                except: pass
+            except:  # inizializzazione soft
+                pass
+
+            def _say_pc(text, speed=None, volume=None):
+                try:
+                    _pc_robot.asay(text)
+                except:
+                    pass
+            return _say_pc
+        except:
+            pass
+
+        # 2) fallback NAOqi ufficiale (qi / ALProxy)
+        _tts = None
+        try:
+            import qi
+            _session = qi.Session()
+            _session.connect("tcp://%s:%d" % (PEPPER_IP, PEPPER_PORT))
+            _tts = _session.service("ALTextToSpeech")
+        except:
+            try:
+                from naoqi import ALProxy
+                _tts = ALProxy("ALTextToSpeech", PEPPER_IP, PEPPER_PORT)
+            except:
+                _tts = None
+
+        if _tts:
+            try: _tts.setLanguage(PEPPER_LANG)
+            except: pass
+            try: _tts.setVolume(PEPPER_VOL)
+            except: pass
+            try: _tts.setParameter("speed", PEPPER_SPD)
+            except: pass
+
+            def _say_naoqi(text, speed=None, volume=None):
+                try:
+                    prefix = ""
+                    if volume is not None:
+                        v = max(0, min(100, int(volume)))
+                        prefix += "\\vol=%d\\" % v
+                    if speed is not None:
+                        s = max(50, min(200, int(speed)))
+                        prefix += "\\rspd=%d\\" % s
+                    _tts.say("%s %s" % (prefix, text))
+                except:
+                    pass
+            return _say_naoqi
+
+        # 3) nessun TTS disponibile: no-op
+        def _noop(*args, **kwargs): 
+            pass
+        return _noop
+
+    global robot_say
+    robot_say = _build_robot_say()
+
+    def _build_robot_gesture():
+        # 1) pepper_cmd se disponibile
+        try:
+            if PEPPER_TOOLS_HOME:
+                import sys as _sys, os as _os
+                _sys.path.append(os.path.join(PEPPER_TOOLS_HOME, 'cmd_server'))
+            import pepper_cmd
+            from pepper_cmd import robot as _pc_robot
+            def _run(anim_id, async_run=True):
+                try:
+                    if async_run:
+                        _pc_robot.animation_player_service.post.run(anim_id)  # async corretto
+                    else:
+                        _pc_robot.animation_player_service.run(anim_id)
+                    return True
+                except Exception:
+                    return False
+            return _run
+        except Exception:
+            pass
+
+        # 2) fallback NAOqi (qi) -> ALAnimationPlayer
+        try:
+            import qi
+            _session = qi.Session()
+            _session.connect("tcp://%s:%d" % (PEPPER_IP, PEPPER_PORT))
+            _anim = _session.service("ALAnimationPlayer")
+            def _run(anim_id, async_run=True):
+                try:
+                    if async_run:
+                        _anim.post.run(anim_id)   # async in NAOqi
+                    else:
+                        _anim.run(anim_id)
+                    return True
+                except Exception:
+                    return False
+            return _run
+        except Exception:
+            def _noop(*args, **kwargs): return False
+            return _noop
+
+    global robot_gesture
+    robot_gesture = _build_robot_gesture()
+
+    GESTURES = {
+        "happy":   "animations/Stand/Gestures/Happy_1",
+        "no":      "animations/Stand/Gestures/No_1",
+        "yes":     "animations/Stand/Gestures/Yes_1",
+        "explain": "animations/Stand/Gestures/Explain_1",
+        "hey":     "animations/Stand/Gestures/Hey_1",
+    }
+
+    def _make_play_gesture(gesture_map, runner):
+        def _play(key, async_run=True):
+            anim = gesture_map.get(key)
+            if not anim:
+                return False
+            try:
+                return runner(anim, async_run)
+            except Exception:
+                return False
+        return _play
+
+    play_gesture = _make_play_gesture(GESTURES, robot_gesture)
+
+    def robot_show_url(url):
+        try:
+            import qi, os
+            session = qi.Session()
+            session.connect("tcp://%s:%d" % (os.environ.get('PEPPER_IP'), int(os.environ.get('PEPPER_PORT','9559'))))
+            tablet = session.service("ALTabletService")
+            tablet.showWebview()
+            tablet.loadUrl(url)
+        except Exception as e:
+            print("Tablet loadUrl error:", e)
+
+    # subito dopo aver definito robot_show_url(...) e prima dei menu:
+    tablet_url = "http://<IP_DEL_MIO_PC>:8000/index.html"   # o la pagina display MODIM corretta
+    robot_show_url(tablet_url)
+
+
+    # === GESTURES HELPERS (inside interaction) ===
+    def _get_session():
+        import qi
+        s = qi.Session()
+        s.connect("tcp://%s:%d" % (PEPPER_IP, PEPPER_PORT))
+        return s
+
+
     """
     Feedback is based on the user's attention
     level, using the 'feedback_attentive' and 'feedback_distracted' actions.
@@ -163,22 +331,25 @@ def interaction():
 
     def was_user_attentive(attention_data, start_frame, num_frames, threshold):
         end_frame = start_frame + num_frames
-        if end_frame > len(attention_data): end_frame = len(attention_data)
-        if start_frame >= end_frame: return True
+        if end_frame > len(attention_data):
+            end_frame = len(attention_data)
+        if start_frame >= end_frame:
+            im.executeModality('TEXT_attentionscore', '100')
+            im.executeModality('TEXT_default', "Your Attention Score: 100%")
+            return (True, 100)
+
         segment = attention_data[start_frame:end_frame]
         attentive_count = segment.count('ATTENTIVE')
         total_count = len(segment)
         score = (float(attentive_count) / total_count) if total_count > 0 else 0
         score_percentage = int(score * 100)
 
-        # 1. Send the specific command to update the progress bar in qaws.js
         im.executeModality('TEXT_attentionscore', str(score_percentage))
-
-        # 2. Updates the main text shown to the user 
         im.executeModality('TEXT_default', "Your Attention Score: %d%%" % score_percentage)
 
         print("\n--- Attention score (frames %d-%d): %.2f%%" % (start_frame, end_frame, score * 100))
         return (score >= threshold, score_percentage)
+
 
     # --- CORE LOGIC SUB-FUNCTIONS ---
     def run_lesson_session(dependencies):
@@ -195,6 +366,7 @@ def interaction():
         threshold = dependencies["threshold"]
         reading_time = dependencies["reading_time"]
         quiz_runner = dependencies["quiz_runner"]
+        pg = dependencies.get("play_gesture")
 
         attention_data = log_loader(attention_log_file)
         if attention_data is None:
@@ -220,15 +392,26 @@ def interaction():
 
             # 1) Topic announcement
             im.execute(lesson["announce_action"])
+            #play_gesture("explain")
+            robot_say("Adesso parliamo di %s." % lesson["topic_name"])
             time.sleep(3)
 
             # 2) Explanation and text
             im.execute(lesson["explanation_action"])
+            robot_say("Per favore leggi sul tablet. Tra poco ti farò una domanda.")
             time.sleep(reading_time)
 
             # 3) Calculate and show attention Score
             is_attentive, score_percentage = attention_checker(attention_data, start_frame_block, block_size, threshold)
             attention_scores.append(score_percentage)
+            if score_percentage >= int(threshold * 100):
+                robot_say("Ottima attenzione, continua così!")
+                if pg: pg("yes")
+            else:
+                robot_say("Attenzione un po' bassa, prova a concentrarti di più.")
+                if pg: pg("no")
+
+
             time.sleep(3)
 
             # 4) Question to the student
@@ -245,11 +428,15 @@ def interaction():
             # ------- feedback to the student -------
             if is_correct:
                 im.executeModality('TEXT_default', "Correct answer! Well done.")
+                robot_say("Risposta corretta, bravo!")
+                if pg: pg("happy")
                 if lesson["topic_name"] not in learned_topics:    
                     learned_topics.append(lesson["topic_name"])
                 current_topic_index += 1
             else:
                 im.executeModality('TEXT_default', "Wrong answer. Let’s review this topic.")
+                robot_say("Non è corretto. Rivediamo insieme.")
+                if pg: pg("no")
 
             time.sleep(3)
 
@@ -273,6 +460,7 @@ def interaction():
         if attention_scores:
             avg_score = sum(attention_scores) / len(attention_scores)
             im.executeModality('TEXT_default', "Your average attention was: {:.0f}%".format(avg_score))
+            robot_say("La tua attenzione media è stata del %d per cento." % int(avg_score))
             print("DEBUG - Attention Scores:", attention_scores)
             print("DEBUG - Average:", avg_score)
         else:
@@ -291,7 +479,7 @@ def interaction():
 
         # --- RESET THE WARNING BAR AT THE END OF THE LESSON ---
         im.executeModality('TEXT_attentionscore', '0')
-
+        robot_say("La lezione di %s termina qui. Torniamo al menu tra poco." % subject_name)
         time.sleep(5)          # hold the goodbye message
 
 
@@ -331,10 +519,13 @@ def interaction():
         total = len(topics)
 
         im.executeModality('TEXT_default', "Let's begin the general knowledge quiz!")
+        robot_say("Iniziamo il quiz di cultura generale.")
+        if pg: pg("hey")
         time.sleep(2)
 
         for subject, lesson in topics.items():
             im.executeModality('TEXT_default', "Category: {}".format(subject))
+            robot_say("Categoria: %s." % subject)
             time.sleep(1)
 
             im.execute(lesson["announce_action"])
@@ -355,6 +546,7 @@ def interaction():
         score_percent = int((correct_count / float(total)) * 100)
         final_msg = "You scored {} out of {} ({}%).".format(correct_count, total, score_percent)
         im.executeModality('TEXT_default', final_msg)
+        robot_say("Hai totalizzato %d su %d." % (correct_count, total))
         time.sleep(3)
 
         if score_percent == 100:
@@ -374,8 +566,10 @@ def interaction():
         while True:
             choice = im.ask("welcome_educational_quiz", timeout=30)
             if choice == "lessons":
+                robot_say("Apro il menu delle lezioni.")
                 dependencies["subject_menu_runner"](dependencies)
             elif choice == "quiz":
+                robot_say("Preparati al quiz.")
                 dependencies["quiz_runner"](dependencies)
             elif choice in ("exit", "timeout"):
                 break
@@ -384,6 +578,7 @@ def interaction():
             time.sleep(1)
 
         im.execute("goodbye")
+        robot_say("Alla prossima! È stato un piacere lavorare con te.")
         print("--- Remote Script Execution Finished ---")
 
     # --- DICTIONARY OF ALL DEPENDENCIES ---
@@ -397,6 +592,7 @@ def interaction():
         "subject_menu_runner": run_subject_menu,
         "quiz_runner": run_general_quiz,
         "all_lessons_data": ALL_LESSONS_DATA, 
+        "play_gesture": play_gesture,
 
         # This will be populated later by run_subject_menu
         "current_lessons": None, 
